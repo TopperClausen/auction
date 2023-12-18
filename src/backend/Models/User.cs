@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using backend.Services;
 using DevOne.Security.Cryptography.BCrypt;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +29,16 @@ public class User {
 
     public bool Authenticate(string plain) {
         return BCryptHelper.CheckPassword(plain, PasswordDigest);
+    }
+
+    public string Jwt() {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, ID.ToString()),
+            new Claim(ClaimTypes.Email, Email)
+        };
+
+        return JwtService.Encode(claims);
     }
     
 }

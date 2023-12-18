@@ -7,33 +7,31 @@ namespace backend.Controllers;
 
 public class UsersController : Controller {
 
+    Context Context;
+    public UsersController(Context ctx) {
+        this.Context = ctx;
+    }
+
     [HttpGet]
     [Route("/users")]
     public IEnumerable<User> Index() {
-        Context ctx = new Context();
-
-        return ctx.users.AsEnumerable();
+        return Context.users.AsEnumerable();
     }
 
     [HttpPost]
     [Route("/users")]
-    public Dictionary<string, dynamic> Create([FromBody] EmailPasswordRequest req) {
-        Context ctx = new Context();
-
+    public IActionResult Create([FromBody] EmailPasswordRequest req) {
         User user = new User {
             Email = req.Email,
             PasswordDigest = req.Password
         };
 
-        ctx.users.Add(user);
-        var dict = new Dictionary<string, dynamic>();
+        Context.users.Add(user);
         try {
-            ctx.SaveChanges();
-            dict.Add("jwt", "this is the jwt");
+            Context.SaveChanges();
+            return new OkObjectResult(new { jwt = user.Jwt() });
         } catch (DbUpdateException) {
-            dict.Add("error", "Email already in use");
+            return new ConflictObjectResult(new { error = "Email already in use" });
         }
-
-        return dict;
     }
 }
