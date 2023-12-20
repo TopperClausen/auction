@@ -9,6 +9,7 @@ using backend.Models;
 
 namespace backend.Migrations
 {
+    /**
     [DbContext(typeof(Context))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
@@ -55,4 +56,5 @@ namespace backend.Migrations
 #pragma warning restore 612, 618
         }
     }
+    **/
 }

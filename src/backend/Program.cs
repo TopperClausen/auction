@@ -1,6 +1,7 @@
 using System.Text;
 using backend;
 using backend.Models;
+using backend.Models.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<Context>();
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.CreateMap<Car, CarDTO>()
+        .ForMember(dest => dest.User, opt => opt.Ignore());
+}, AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

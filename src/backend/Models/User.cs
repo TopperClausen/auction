@@ -16,6 +16,8 @@ public class User {
     [EmailAddress]
     public string Email { get; set; }
 
+    public ICollection<Car> Cars { get; set; }
+
     public string PasswordDigest {
         get { return _passwordDigest; }
         set { _passwordDigest = Encrypt(value); }
@@ -34,8 +36,8 @@ public class User {
     public string Jwt() {
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, ID.ToString()),
-            new Claim(ClaimTypes.Email, Email)
+            new Claim(ClaimTypes.NameIdentifier, ID.ToString(), "id"),
+            new Claim(ClaimTypes.Email, Email, "email")
         };
 
         return JwtService.Encode(claims);
