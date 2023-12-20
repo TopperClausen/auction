@@ -13,6 +13,7 @@ public class Auction {
     public DateTime EndingAt { get; set; }
 
     public Car Car { get; set; }
+    public ICollection<Bid> Bids { get; set; }
 
     public static bool Active(Auction auction) {
         return auction.StartedAt > DateTime.Today && auction.EndingAt < DateTime.Today;

@@ -8,6 +8,7 @@ public class Context : DbContext {
     public DbSet<Car> Cars { get; set; }
     public DbSet<Brand> Brands { get; set; }
     public DbSet<Auction> Auctions { get; set; }
+    public DbSet<Bid> Bids { get; set; }
 
     public string DbPath { get; }
     public Context() {
@@ -31,6 +32,18 @@ public class Context : DbContext {
             .HasMany(u => u.Cars)
             .WithOne(c => c.User)
             .HasForeignKey(c => c.UserID)
+            .IsRequired();
+        
+        modelBuilder.Entity<Bid>()
+            .HasOne(b => b.User)
+            .WithMany(u => u.Bids)
+            .HasForeignKey(b => b.UserID)
+            .IsRequired();
+
+        modelBuilder.Entity<Bid>()
+            .HasOne(b => b.Auction)
+            .WithMany(a => a.Bids)
+            .HasForeignKey(b => b.AuctionID)
             .IsRequired();
 
         base.OnModelCreating(modelBuilder);

@@ -17,6 +17,7 @@ public class User {
     public string Email { get; set; }
 
     public ICollection<Car> Cars { get; set; }
+    public ICollection<Bid> Bids { get; set; }
 
     public string PasswordDigest {
         get { return _passwordDigest; }

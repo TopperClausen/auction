@@ -37,7 +37,7 @@ public class AuctionsController : BaseController
             Context.SaveChanges();
             return Ok();
         } catch (DbUpdateException e) {
-            return new UnprocessableEntityObjectResult(new { message = "An unknown error has occured", internalError = e.Message });
+            return new UnprocessableEntityObjectResult(ErrorBody(e));
         }
     }
 
