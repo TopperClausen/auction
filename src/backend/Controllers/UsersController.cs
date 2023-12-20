@@ -1,3 +1,4 @@
+using AutoMapper;
 using backend.Models;
 using backend.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -5,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers;
 
-public class UsersController : Controller {
-
-    Context Context;
-    public UsersController(Context ctx) {
-        this.Context = ctx;
+public class UsersController : BaseController {
+    public UsersController(Context context, IMapper mapper) : base(context, mapper)
+    {
     }
 
     [HttpGet]

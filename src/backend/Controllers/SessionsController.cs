@@ -1,14 +1,13 @@
+using AutoMapper;
 using backend.Models;
 using backend.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
 
-public class SessionsController {
-    Context Context;
-
-    public SessionsController(Context context) {
-        Context = context;
+public class SessionsController : BaseController {
+    public SessionsController(Context context, IMapper mapper) : base(context, mapper)
+    {
     }
 
     [HttpPost]

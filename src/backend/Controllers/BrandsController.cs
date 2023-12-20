@@ -1,15 +1,13 @@
+using AutoMapper;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers;
 
-public class BrandsController {
-
-    Context Context;
-
-    public BrandsController(Context context) {
-        Context = context;
+public class BrandsController : BaseController {
+    public BrandsController(Context context, IMapper mapper) : base(context, mapper)
+    {
     }
 
     [HttpGet("/brands")]
