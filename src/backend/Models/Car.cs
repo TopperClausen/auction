@@ -12,6 +12,7 @@ public class Car {
     public int KilometersDriven { get; set; }
     public decimal KilometersPerLiter { get; set; }
     public int ModelYear { get; set; }
+    public string LatestPlate { get; set; }
 
     public Brand Brand { get; set; }
     public User User { get; set; }

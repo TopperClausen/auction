@@ -11,6 +11,7 @@ public class CarDTO {
     public int KilometersDriven { get; set; }
     public decimal KilometersPerLiter { get; set; }
     public int ModelYear { get; set; }
+    public string LatestPlate { get; set; }
 
     [JsonIgnore]
     public User User { get; set; }
