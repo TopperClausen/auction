@@ -28,7 +28,7 @@ public class UsersController : BaseController {
         Context.users.Add(user);
         try {
             Context.SaveChanges();
-            return new OkObjectResult(new { jwt = user.Jwt() });
+            return new OkObjectResult(new { jwt = user.Jwt(), userID = user.ID });
         } catch (DbUpdateException) {
             return new ConflictObjectResult(new { error = "Email already in use" });
         }

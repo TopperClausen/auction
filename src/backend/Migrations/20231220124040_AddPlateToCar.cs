@@ -14,7 +14,7 @@ namespace backend.Migrations
                 name: "LatestPlate",
                 table: "Cars",
                 type: "TEXT",
-                nullable: false,
+                nullable: true,
                 defaultValue: "");
         }
 

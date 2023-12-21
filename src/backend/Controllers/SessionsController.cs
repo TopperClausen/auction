@@ -18,6 +18,6 @@ public class SessionsController : BaseController {
             return new UnauthorizedObjectResult(new { Error = "Incorrect credentials" });
         }
 
-        return new OkObjectResult(new { Jwt = user.Jwt() });
+        return new OkObjectResult(new { Jwt = user.Jwt(), userID = user.ID });
     }
 }

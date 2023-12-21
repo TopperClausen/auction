@@ -12,6 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: "_myAllowSpecificOrigins", policy => {
+        policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+    });
+});
+
 builder.Services.AddDbContext<Context>();
 builder.Services.AddAutoMapper(cfg =>
 {
@@ -24,7 +30,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    TokenDecryptionKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET")))
+                    TokenDecryptionKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET"))),
+                    ValidIssuer = "SecretMe",
+                    ValidAudience = "SecretYou", // Replace with your actual audience
                 };
             });
 
@@ -39,6 +47,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
+app.UseCors("_myAllowSpecificOrigins");
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

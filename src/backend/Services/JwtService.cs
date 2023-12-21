@@ -15,7 +15,9 @@ public static class JwtService {
         var token = new JwtSecurityToken(
             claims: claims,
             expires: DateTime.UtcNow.AddDays(30), // Token expiration time
-            signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+            signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256),
+            issuer: "SecretMe",
+            audience: "SecretYou"
         );
 
         // Serialize the token to a string
